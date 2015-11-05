@@ -65,9 +65,9 @@ public class ControlRiego {
            valor = 3;
            mensaje = "No se puede llenar si la sequia es 10";            
         }
-        if(estado == EstadoTanque.MEDIO && sequia >=10){
+        if(estado == EstadoTanque.MEDIO && sequia >= 7){
           valor = 4;
-          mensaje = "No se puede llenar mas de la mitad si la sequia es mayor o igual a 10";
+          mensaje = "No se puede llenar mas de la mitad si la sequia es mayor o igual a 7";
         }
     return valor;    
     }
@@ -81,12 +81,12 @@ public class ControlRiego {
             valor = 2;
             mensaje = "No se puede vaciar si el tanque esta vacio";
         }
-        if(humedad >= 7){
+        if((estado == EstadoTanque.LLENO || estado == EstadoTanque.MEDIO) && humedad >= 7){
             valor = 3;
-            mensaje = "No se puede vaciar si la humedad es mayor o igual a 7";
+            mensaje = "No se puede vaciar nada si la humedad es mayor o igual a 7";
             
         }
-        if(humedad >= 3 && humedad < 7){
+        if((humedad >= 3 && humedad < 7) && estado == EstadoTanque.MEDIO){
            valor = 3;
            mensaje = "no se puede vaciar mas de la mitad si la humedad es mayor o igual a 3 y menor de 7";
         }

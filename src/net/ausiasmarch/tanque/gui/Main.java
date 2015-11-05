@@ -19,8 +19,8 @@ public class Main extends javax.swing.JFrame {
     private EstadoTanque estado; 
     public Main() {
         initComponents();
-        //controlRiego = new ControlRiego(estado);
-       
+        controlRiego = new ControlRiego();
+        controlRiego.ControlRiego(controlRiego.getEstado());
         setSize(580, 450);
         setLocationRelativeTo(null);
     }
@@ -116,13 +116,34 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLlenarMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLlenarMedioActionPerformed
-
-       
+        if(!Convert.isValidInt(jTextFieldNivelSequia.getText())){
+            this.mensaje("El valor de la sequia no es un numero entero.");
+            return;
+        }
+        controlRiego.setSequia(Convert.parseInt(jTextFieldNivelSequia.getText()));
+        if(controlRiego.permitidoLlenar() != 0){
+           this.mensaje(controlRiego.getMensaje());
+           return;
+        }
+        tanque.llenarMedio();
+        controlRiego.setEstado(tanque.getEstado());
         
     }//GEN-LAST:event_jButtonLlenarMedioActionPerformed
 
     private void jButtonVaciarMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVaciarMedioActionPerformed
-       
+        if(!Convert.isValidInt(jTextFieldNivelHumedad.getText())){
+            this.mensaje("El valor de la humedad no es un numero entero.");
+            return;
+        }
+        controlRiego.setHumedad(Convert.parseInt(jTextFieldNivelHumedad.getText()));
+        controlRiego.setEstado(tanque.getEstado());
+        if(controlRiego.permitidoVaciar() != 0){
+           this.mensaje(controlRiego.getMensaje());
+           return;
+        }
+        
+        tanque.vaciarMedio();
+        controlRiego.setEstado(tanque.getEstado());
         
     }//GEN-LAST:event_jButtonVaciarMedioActionPerformed
 
